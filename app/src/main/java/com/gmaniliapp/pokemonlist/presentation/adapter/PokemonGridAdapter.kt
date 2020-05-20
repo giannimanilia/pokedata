@@ -14,11 +14,11 @@ import com.gmaniliapp.pokemonlist.data.model.Pokemon
  * @param onClickListener a lambda that handle click
  */
 class PokemonGridAdapter(val onClickListener: OnClickListener) :
-        ListAdapter<Pokemon, PokemonGridAdapter.MarsPropertyViewHolder>(
+        ListAdapter<Pokemon, PokemonGridAdapter.PokemonViewHolder>(
             DiffCallback
         ) {
 
-    class MarsPropertyViewHolder(private var binding: GridViewItemBinding):
+    class PokemonViewHolder(private var binding: GridViewItemBinding):
             RecyclerView.ViewHolder(binding.root) {
         fun bind(pokemon: Pokemon) {
             binding.pokemon = pokemon
@@ -41,18 +41,18 @@ class PokemonGridAdapter(val onClickListener: OnClickListener) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): MarsPropertyViewHolder {
-        return MarsPropertyViewHolder(
+                                    viewType: Int): PokemonViewHolder {
+        return PokemonViewHolder(
             GridViewItemBinding.inflate(LayoutInflater.from(parent.context))
         )
     }
 
-    override fun onBindViewHolder(holder: MarsPropertyViewHolder, position: Int) {
-        val marsProperty = getItem(position)
+    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) {
+        val pokemon = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(marsProperty)
+            onClickListener.onClick(pokemon)
         }
-        holder.bind(marsProperty)
+        holder.bind(pokemon)
     }
 
     /**

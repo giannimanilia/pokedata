@@ -16,8 +16,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/main_photo_image"
@@ -43,6 +42,41 @@
                 app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
                 tools:text="Pokemon" />
 
+            <ImageView
+                android:id="@+id/status_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:pokemonApiStatus="@{viewModel.status}" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pokemon_types"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/pokemon_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:pokemonTypesData="@{viewModel.selectedPokemon.types}"
+                tools:itemCount="16"
+                tools:listitem="@layout/types_view_item" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pokemon_stats"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/pokemon_types"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:pokemonStatsData="@{viewModel.selectedPokemon.stats}"
+                tools:itemCount="16"
+                tools:listitem="@layout/stats_view_item" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

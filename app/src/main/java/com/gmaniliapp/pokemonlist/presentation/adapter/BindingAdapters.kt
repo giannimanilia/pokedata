@@ -10,16 +10,36 @@ import com.bumptech.glide.request.RequestOptions
 import com.gmaniliapp.pokemonlist.viewmodel.PokemonApiStatus
 import com.gmaniliapp.pokemonlist.R
 import com.gmaniliapp.pokemonlist.data.model.Pokemon
+import com.gmaniliapp.pokemonlist.data.model.PokemonStat
+import com.gmaniliapp.pokemonlist.data.model.PokemonType
 import java.net.URI
 
 private const val BASE_IMAGE_URL = "https://pokeres.bastionbot.org/images/pokemon/"
 
 /**
- * When there is no Pokemon data (data is null), hide the [RecyclerView], otherwise show it.
+ * Bind pokemons
  */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Pokemon>?) {
     val adapter = recyclerView.adapter as PokemonGridAdapter
+    adapter.submitList(data)
+}
+
+/**
+ * Bind pokemon's types
+ */
+@BindingAdapter("pokemonTypesData")
+fun bindPokemonTypes(recyclerView: RecyclerView, data: List<PokemonType>?) {
+    val adapter = recyclerView.adapter as PokemonTypesAdapter
+    adapter.submitList(data)
+}
+
+/**
+ * Bind pokemon's stats
+ */
+@BindingAdapter("pokemonStatsData")
+fun bindPokemonStats(recyclerView: RecyclerView, data: List<PokemonStat>?) {
+    val adapter = recyclerView.adapter as PokemonStatsAdapter
     adapter.submitList(data)
 }
 
