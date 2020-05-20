@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.gmaniliapp.pokemonlist.databinding.FragmentDetailBinding
-import com.gmaniliapp.pokemonlist.presentation.adapter.PokemonGridAdapter
 import com.gmaniliapp.pokemonlist.presentation.adapter.PokemonStatsAdapter
 import com.gmaniliapp.pokemonlist.presentation.adapter.PokemonTypesAdapter
 import com.gmaniliapp.pokemonlist.viewmodel.DetailViewModel
