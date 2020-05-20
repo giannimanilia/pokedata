@@ -1,7 +1,8 @@
-package com.gmaniliapp.pokemonlist
+package com.gmaniliapp.pokemonlist.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.gmaniliapp.pokemonlist.R
 
 class MainActivity : AppCompatActivity() {
 
