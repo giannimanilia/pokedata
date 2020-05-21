@@ -50,6 +50,8 @@
                     android:textSize="18sp"
                     android:textColor="@android:color/white"
                     android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     tools:text="Pokemon" />
             </FrameLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

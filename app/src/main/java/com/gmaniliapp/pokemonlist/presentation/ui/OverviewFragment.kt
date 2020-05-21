@@ -9,11 +9,13 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.gmaniliapp.pokemonlist.R
 import com.gmaniliapp.pokemonlist.databinding.FragmentOverviewBinding
 import com.gmaniliapp.pokemonlist.presentation.adapter.PokemonGridAdapter
 import com.gmaniliapp.pokemonlist.utils.PokemonItemDecoration
 import com.gmaniliapp.pokemonlist.viewmodel.OverviewViewModel
+
 
 /**
  * This [Fragment] shows the the status of the Pokemon web services transaction.
@@ -44,6 +46,14 @@ class OverviewFragment : Fragment() {
                 })
         binding.pokemonGrid.addItemDecoration(PokemonItemDecoration(
             resources.getDimension(R.dimen.cardview_margin).toInt()))
+        binding.pokemonGrid.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.getPokemons()
+                }
+            }
+        })
 
         if (binding.itemDetailContainer != null) {
             twoPane = true

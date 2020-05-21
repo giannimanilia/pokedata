@@ -23,6 +23,9 @@ class OverviewViewModel : ViewModel() {
     val pokemons: LiveData<List<Pokemon>>
         get() = _pokemons
 
+    // List of retrieved pokemons
+    private val retrievedPokemons: ArrayList<Pokemon> = ArrayList()
+
     // Handle navigation to the selected pokemon
     private val _navigateToSelectedPokemon = MutableLiveData<Pokemon>()
     val navigateToSelectedPokemon: LiveData<Pokemon>
@@ -31,6 +34,13 @@ class OverviewViewModel : ViewModel() {
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    // Count of pokemons retrieved until now
+    private var offset = 0
+
+    // Loading states
+    private var isLoading = false
+    private var allLoaded = false
 
     init {
         getPokemons()
@@ -41,20 +51,31 @@ class OverviewViewModel : ViewModel() {
      * updates the [Pokemon] [List] and [PokemonApiStatus] [LiveData]. The Retrofit service
      * returns a coroutine Deferred, which we await to get the result of the transaction.
      */
-    private fun getPokemons() {
+    fun getPokemons() {
+        if (isLoading || allLoaded)
+            return
+
+        isLoading = true;
         coroutineScope.launch {
-            val getPokemonsDeferred = PokemonApi.retrofitService.getPokemonsAsync()
+            val getPokemonsDeferred = PokemonApi.retrofitService.getPokemonsAsync(offset = offset)
             try {
                 _status.value =
                     PokemonApiStatus.LOADING
                 val listResult = getPokemonsDeferred.await()
                 _status.value =
                     PokemonApiStatus.DONE
-                _pokemons.value = listResult.results
+                retrievedPokemons.addAll(listResult.results)
+                _pokemons.postValue(retrievedPokemons)
+
+                // Update pagination variables
+                allLoaded = listResult.next == null
+                offset += listResult.results.count()
             } catch (e: Exception) {
                 _status.value =
                     PokemonApiStatus.ERROR
                 _pokemons.value = ArrayList()
+            } finally {
+                isLoading = false
             }
         }
     }

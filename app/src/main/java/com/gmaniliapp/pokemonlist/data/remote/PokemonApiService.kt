@@ -10,6 +10,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 private const val BASE_URL = "https://pokeapi.co/api/v2/"
 
@@ -34,7 +35,10 @@ private val retrofit = Retrofit.Builder()
  */
 interface PokemonApiService {
     @GET("pokemon")
-    fun getPokemonsAsync():
+    fun getPokemonsAsync(
+        @Query("limit") limit: Int = 20,
+        @Query("offset") offset: Int = 0
+    ):
             Deferred<PokemonsResult>
 
     @GET("pokemon/{id}")

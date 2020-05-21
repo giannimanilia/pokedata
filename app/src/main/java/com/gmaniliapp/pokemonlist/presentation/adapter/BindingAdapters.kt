@@ -23,6 +23,7 @@ private const val BASE_IMAGE_URL = "https://pokeres.bastionbot.org/images/pokemo
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Pokemon>?) {
     val adapter = recyclerView.adapter as PokemonGridAdapter
     adapter.submitList(data)
+    adapter.notifyDataSetChanged()
 }
 
 /**
