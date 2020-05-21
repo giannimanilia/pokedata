@@ -9,17 +9,19 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners">
 
         <TextView
             android:id="@+id/pokemon_type_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{pokemonType.type.name}"
-            android:textColor="#de000000"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Type" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

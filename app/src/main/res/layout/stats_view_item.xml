@@ -9,15 +9,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corners">
 
         <TextView
             android:id="@+id/pokemon_stat_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{pokemonStat.stat.name}"
-            android:textColor="#de000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Stat" />
@@ -26,8 +28,8 @@
             android:id="@+id/pokemon_stat_base"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(pokemonStat.base_stat)}"
-            android:textColor="#de000000"
+            android:text="@{String.format(@string/base_stat, pokemonStat.base_stat)}"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_stat_name"
             tools:text="0" />
@@ -36,8 +38,8 @@
             android:id="@+id/pokemon_stat_effort"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{String.valueOf(pokemonStat.effort)}"
-            android:textColor="#de000000"
+            android:text="@{String.format(@string/effort, pokemonStat.effort)}"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/pokemon_stat_base"
             tools:text="0" />

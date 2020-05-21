@@ -16,16 +16,33 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_start"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.2" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_end"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.8" />
 
             <ImageView
-                android:id="@+id/main_photo_image"
-                android:layout_width="match_parent"
+                android:id="@+id/pokemon_image"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:scaleType="center"
+                android:layout_marginTop="16dp"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
                 app:imageUrl="@{viewModel.selectedPokemon.url}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_start"
+                app:layout_constraintEnd_toEndOf="@id/guideline_end"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -33,13 +50,11 @@
                 android:id="@+id/pokemon_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:text="@{viewModel.selectedPokemon.name}"
-                android:textColor="#de000000"
-                android:textSize="39sp"
+                android:textSize="32sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+                app:layout_constraintTop_toBottomOf="@+id/pokemon_image"
                 tools:text="Pokemon" />
 
             <ImageView
@@ -52,31 +67,113 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:pokemonApiStatus="@{viewModel.status}" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pokemon_types"
-                android:layout_width="0dp"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/types_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_marginTop="8dp"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="@dimen/cardview_elevation"
                 app:layout_constraintTop_toBottomOf="@+id/pokemon_name"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:pokemonTypesData="@{viewModel.selectedPokemon.types}"
-                tools:itemCount="16"
-                tools:listitem="@layout/types_view_item" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pokemon_stats"
-                android:layout_width="0dp"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/types_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/types"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/expand_arrow_types"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/types" />
+
+                    <ImageView
+                        android:id="@+id/expand_arrow_types"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/arrow_down_float"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/types_title"
+                        app:layout_constraintTop_toTopOf="@id/types_title"
+                        app:layout_constraintBottom_toBottomOf="@id/types_title"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/pokemon_types"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:clipToPadding="false"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        app:pokemonTypesData="@{viewModel.selectedPokemon.types}"
+                        app:layout_constraintTop_toBottomOf="@+id/types_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:itemCount="16"
+                        tools:listitem="@layout/types_view_item" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/stats_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@+id/pokemon_types"
+                app:cardUseCompatPadding="true"
+                app:cardElevation="@dimen/cardview_elevation"
+                app:layout_constraintTop_toBottomOf="@+id/types_card"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:pokemonStatsData="@{viewModel.selectedPokemon.stats}"
-                tools:itemCount="16"
-                tools:listitem="@layout/stats_view_item" />
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
+
+                    <TextView
+                        android:id="@+id/stats_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/stats"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/expand_arrow_stats"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/stats" />
+
+                    <ImageView
+                        android:id="@+id/expand_arrow_stats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@android:drawable/arrow_down_float"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/stats_title"
+                        app:layout_constraintTop_toTopOf="@id/stats_title"
+                        app:layout_constraintBottom_toBottomOf="@id/stats_title" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/pokemon_stats"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:clipToPadding="false"
+                        android:visibility="gone"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        app:pokemonStatsData="@{viewModel.selectedPokemon.stats}"
+                        app:layout_constraintTop_toBottomOf="@+id/stats_title"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:spanCount="3"
+                        tools:itemCount="16"
+                        tools:listitem="@layout/stats_view_item" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

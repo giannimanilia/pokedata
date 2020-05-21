@@ -1,5 +1,5 @@
 <resources>
     <dimen name="cardview_border_radius">8dp</dimen>
-    <dimen name="cardview_elevation">2dp</dimen>
+    <dimen name="cardview_elevation">4dp</dimen>
     <dimen name="cardview_margin">8dp</dimen>
 </resources>
