@@ -55,7 +55,7 @@ class OverviewViewModel : ViewModel() {
         if (isLoading || allLoaded)
             return
 
-        isLoading = true;
+        isLoading = true
         coroutineScope.launch {
             val getPokemonsDeferred = PokemonApi.retrofitService.getPokemonsAsync(offset = offset)
             try {
