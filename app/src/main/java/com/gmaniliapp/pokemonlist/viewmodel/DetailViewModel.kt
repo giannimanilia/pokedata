@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gmaniliapp.pokemonlist.data.model.Pokemon
+import com.gmaniliapp.pokemonlist.data.model.PokemonApiStatus
 import com.gmaniliapp.pokemonlist.data.remote.PokemonApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

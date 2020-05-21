@@ -7,9 +7,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.gmaniliapp.pokemonlist.viewmodel.PokemonApiStatus
 import com.gmaniliapp.pokemonlist.R
 import com.gmaniliapp.pokemonlist.data.model.Pokemon
+import com.gmaniliapp.pokemonlist.data.model.PokemonApiStatus
 import com.gmaniliapp.pokemonlist.data.model.PokemonStat
 import com.gmaniliapp.pokemonlist.data.model.PokemonType
 import java.net.URI
