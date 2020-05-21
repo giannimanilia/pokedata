@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Pokemon List</string>
     <string name="base_stat">Base stat: %1$s</string>
+    <string name="details">Details</string>
     <string name="effort">Effort: %1$s</string>
-    <string name="types">Types</string>
+    <string name="overview">Overview</string>
     <string name="stats">Stats</string>
+    <string name="types">Types</string>
 </resources>
