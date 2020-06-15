@@ -5,7 +5,7 @@
     <data>
         <variable
             name="pokemonType"
-            type="com.gmaniliapp.pokemonlist.data.model.PokemonType" />
+            type="com.gmaniliapp.pokedata.data.model.PokemonType" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

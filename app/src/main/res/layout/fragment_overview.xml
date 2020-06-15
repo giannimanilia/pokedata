@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.gmaniliapp.pokemonlist.viewmodel.OverviewViewModel" />
+            type="com.gmaniliapp.pokedata.viewmodel.OverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

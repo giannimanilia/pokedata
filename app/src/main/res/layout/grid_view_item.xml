@@ -5,7 +5,7 @@
     <data>
         <variable
             name="pokemon"
-            type="com.gmaniliapp.pokemonlist.data.model.Pokemon" />
+            type="com.gmaniliapp.pokedata.data.model.Pokemon" />
     </data>
 
     <androidx.cardview.widget.CardView

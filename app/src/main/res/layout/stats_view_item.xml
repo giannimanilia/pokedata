@@ -5,7 +5,7 @@
     <data>
         <variable
             name="pokemonStat"
-            type="com.gmaniliapp.pokemonlist.data.model.PokemonStat" />
+            type="com.gmaniliapp.pokedata.data.model.PokemonStat" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
