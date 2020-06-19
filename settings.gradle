@@ -1,2 +1,2 @@
-rootProject.name='Pokemon List'
+rootProject.name='PokeData'
 include ':app'

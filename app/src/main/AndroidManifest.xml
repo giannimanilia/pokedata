@@ -13,8 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".presentation.ui.MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".presentation.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
