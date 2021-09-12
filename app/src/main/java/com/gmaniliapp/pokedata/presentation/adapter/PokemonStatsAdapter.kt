@@ -8,10 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmaniliapp.pokedata.data.model.PokemonStat
 import com.gmaniliapp.pokedata.databinding.StatsViewItemBinding
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- */
 class PokemonStatsAdapter :
         ListAdapter<PokemonStat, PokemonStatsAdapter.PokemonStatsViewHolder>(
             DiffCallback
@@ -25,10 +21,6 @@ class PokemonStatsAdapter :
         }
     }
 
-    /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [PokemonStat]
-     * has been updated.
-     */
     companion object DiffCallback : DiffUtil.ItemCallback<PokemonStat>() {
         override fun areItemsTheSame(oldItem: PokemonStat, newItem: PokemonStat): Boolean {
             return oldItem === newItem

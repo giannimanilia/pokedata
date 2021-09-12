@@ -16,9 +16,6 @@ import com.gmaniliapp.pokedata.data.model.PokemonType
 
 private const val BASE_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
 
-/**
- * Bind pokemons
- */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<Pokemon>?) {
     val adapter = recyclerView.adapter as PokemonGridAdapter
@@ -26,27 +23,18 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<Pokemon>?) {
     adapter.notifyDataSetChanged()
 }
 
-/**
- * Bind pokemon's types
- */
 @BindingAdapter("pokemonTypesData")
 fun bindPokemonTypes(recyclerView: RecyclerView, data: List<PokemonType>?) {
     val adapter = recyclerView.adapter as PokemonTypesAdapter
     adapter.submitList(data)
 }
 
-/**
- * Bind pokemon's stats
- */
 @BindingAdapter("pokemonStatsData")
 fun bindPokemonStats(recyclerView: RecyclerView, data: List<PokemonStat>?) {
     val adapter = recyclerView.adapter as PokemonStatsAdapter
     adapter.submitList(data)
 }
 
-/**
- * Uses the Glide library to load an image by URL into an [ImageView]
- */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, url: String?) {
     url?.let {
@@ -64,12 +52,6 @@ fun bindImage(imgView: ImageView, url: String?) {
     }
 }
 
-/**
- * This binding adapter displays the [PokemonApiStatus] of the network request in an image view.  When
- * the request is loading, it displays a loading_animation.  If the request has an error, it
- * displays a broken image to reflect the connection error.  When the request is finished, it
- * hides the image view.
- */
 @BindingAdapter("pokemonApiStatus")
 fun bindStatus(statusImageView: ImageView, status: PokemonApiStatus?) {
     when (status) {

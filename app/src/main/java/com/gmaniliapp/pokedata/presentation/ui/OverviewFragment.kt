@@ -16,17 +16,10 @@ import com.gmaniliapp.pokedata.presentation.adapter.PokemonGridAdapter
 import com.gmaniliapp.pokedata.utils.PokemonItemDecoration
 import com.gmaniliapp.pokedata.viewmodel.OverviewViewModel
 
-
-/**
- * This [Fragment] shows the the status of the Pokemon web services transaction.
- */
 class OverviewFragment : Fragment() {
 
     private var twoPane: Boolean = false
 
-    /**
-     * Lazily initialize the [OverviewViewModel].
-     */
     private val viewModel: OverviewViewModel by lazy {
         ViewModelProvider(this).get(OverviewViewModel::class.java)
     }
@@ -37,8 +30,6 @@ class OverviewFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        // Sets the adapter of the pokemonGrid RecyclerView with clickHandler lambda that
-        // tells the viewModel when the pokemon is clicked
         binding.pokemonGrid.adapter =
             PokemonGridAdapter(
                 PokemonGridAdapter.OnClickListener {
@@ -59,9 +50,6 @@ class OverviewFragment : Fragment() {
             twoPane = true
         }
 
-        // Observe the navigateToSelectedPokemon LiveData and Navigate when it isn't null
-        // After navigating, call displayPropertyDetailsComplete() so that the ViewModel is ready
-        // for another navigation event.
         viewModel.navigateToSelectedPokemon.observe(viewLifecycleOwner, Observer {
             if (null != it) {
                 if (twoPane) {

@@ -16,9 +16,6 @@ import com.gmaniliapp.pokedata.utils.HorizontalItemDecoration
 import com.gmaniliapp.pokedata.viewmodel.DetailViewModel
 import com.gmaniliapp.pokedata.viewmodel.DetailViewModelFactory
 
-/**
- * This [Fragment] shows the detailed information about a selected pokemon.
- */
 class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,7 +30,6 @@ class DetailFragment : Fragment() {
         binding.viewModel = ViewModelProvider(
             this, viewModelFactory).get(DetailViewModel::class.java)
 
-        // Set pokemonTypes RecyclerView
         binding.pokemonTypes.adapter = PokemonTypesAdapter()
         binding.typesCard.setOnClickListener {
             TransitionManager.beginDelayedTransition(
@@ -54,7 +50,6 @@ class DetailFragment : Fragment() {
             resources.getDimension(R.dimen.cardview_margin).toInt())
         )
 
-        // Set pokemonStats RecyclerView
         binding.pokemonStats.adapter = PokemonStatsAdapter()
         binding.statsCard.setOnClickListener {
             TransitionManager.beginDelayedTransition(

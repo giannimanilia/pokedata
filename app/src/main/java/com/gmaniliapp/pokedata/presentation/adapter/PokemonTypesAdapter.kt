@@ -8,10 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmaniliapp.pokedata.data.model.PokemonType
 import com.gmaniliapp.pokedata.databinding.TypesViewItemBinding
 
-/**
- * This class implements a [RecyclerView] [ListAdapter] which uses Data Binding to present [List]
- * data, including computing diffs between lists.
- */
 class PokemonTypesAdapter :
         ListAdapter<PokemonType, PokemonTypesAdapter.PokemonTypeViewHolder>(
             DiffCallback
@@ -25,10 +21,6 @@ class PokemonTypesAdapter :
         }
     }
 
-    /**
-     * Allows the RecyclerView to determine which items have changed when the [List] of [PokemonType]
-     * has been updated.
-     */
     companion object DiffCallback : DiffUtil.ItemCallback<PokemonType>() {
         override fun areItemsTheSame(oldItem: PokemonType, newItem: PokemonType): Boolean {
             return oldItem === newItem

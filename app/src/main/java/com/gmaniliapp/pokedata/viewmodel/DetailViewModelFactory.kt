@@ -5,9 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.gmaniliapp.pokedata.data.model.Pokemon
 
-/**
- * Simple ViewModel factory that provides the Pokemon and context to the ViewModel.
- */
 class DetailViewModelFactory(
     private val pokemon: Pokemon,
     private val application: Application) : ViewModelProvider.Factory {
