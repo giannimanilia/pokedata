@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.gmaniliapp.pokedata.viewmodel.OverviewViewModel" />
+            type="com.gmaniliapp.pokedata.ui.overview.view_model.OverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.MainActivity">
+        tools:context=".ui.main.activity.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/pokemon_grid"

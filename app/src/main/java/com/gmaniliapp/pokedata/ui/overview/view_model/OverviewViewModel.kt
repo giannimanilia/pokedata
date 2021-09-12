@@ -1,4 +1,4 @@
-package com.gmaniliapp.pokedata.viewmodel
+package com.gmaniliapp.pokedata.ui.overview.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

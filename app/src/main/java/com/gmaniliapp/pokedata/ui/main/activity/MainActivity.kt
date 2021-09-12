@@ -1,4 +1,4 @@
-package com.gmaniliapp.pokedata.presentation.ui
+package com.gmaniliapp.pokedata.ui.main.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

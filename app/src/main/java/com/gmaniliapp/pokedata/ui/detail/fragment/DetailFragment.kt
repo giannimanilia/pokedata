@@ -1,4 +1,4 @@
-package com.gmaniliapp.pokedata.presentation.ui
+package com.gmaniliapp.pokedata.ui.detail.fragment
 
 import android.os.Bundle
 import android.transition.AutoTransition
@@ -12,9 +12,9 @@ import com.gmaniliapp.pokedata.R
 import com.gmaniliapp.pokedata.databinding.FragmentDetailBinding
 import com.gmaniliapp.pokedata.presentation.adapter.PokemonStatsAdapter
 import com.gmaniliapp.pokedata.presentation.adapter.PokemonTypesAdapter
-import com.gmaniliapp.pokedata.utils.HorizontalItemDecoration
-import com.gmaniliapp.pokedata.viewmodel.DetailViewModel
-import com.gmaniliapp.pokedata.viewmodel.DetailViewModelFactory
+import com.gmaniliapp.pokedata.util.HorizontalItemDecoration
+import com.gmaniliapp.pokedata.ui.detail.view_model.DetailViewModel
+import com.gmaniliapp.pokedata.ui.detail.view_model.DetailViewModelFactory
 
 class DetailFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

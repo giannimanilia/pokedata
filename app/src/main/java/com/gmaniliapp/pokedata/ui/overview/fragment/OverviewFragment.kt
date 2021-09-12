@@ -1,4 +1,4 @@
-package com.gmaniliapp.pokedata.presentation.ui
+package com.gmaniliapp.pokedata.ui.overview.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmaniliapp.pokedata.R
 import com.gmaniliapp.pokedata.databinding.FragmentOverviewBinding
 import com.gmaniliapp.pokedata.presentation.adapter.PokemonGridAdapter
-import com.gmaniliapp.pokedata.utils.PokemonItemDecoration
-import com.gmaniliapp.pokedata.viewmodel.OverviewViewModel
+import com.gmaniliapp.pokedata.ui.detail.fragment.DetailFragment
+import com.gmaniliapp.pokedata.util.PokemonItemDecoration
+import com.gmaniliapp.pokedata.ui.overview.view_model.OverviewViewModel
 
 class OverviewFragment : Fragment() {
 
