@@ -1,5 +1,6 @@
 package com.gmaniliapp.pokedata.presentation.adapter
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -12,9 +13,8 @@ import com.gmaniliapp.pokedata.data.model.Pokemon
 import com.gmaniliapp.pokedata.data.model.PokemonApiStatus
 import com.gmaniliapp.pokedata.data.model.PokemonStat
 import com.gmaniliapp.pokedata.data.model.PokemonType
-import java.net.URI
 
-private const val BASE_IMAGE_URL = "https://pokeres.bastionbot.org/images/pokemon/"
+private const val BASE_IMAGE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
 
 /**
  * Bind pokemons
@@ -50,17 +50,17 @@ fun bindPokemonStats(recyclerView: RecyclerView, data: List<PokemonStat>?) {
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, url: String?) {
     url?.let {
-        val uri = URI(url)
-        val segments: Array<String> = uri.path.split("/").toTypedArray()
-        val id = segments[segments.size - 2]
+        val uri: Uri = Uri.parse(url)
+        val id: String? = uri.lastPathSegment
         val imgUri = ("$BASE_IMAGE_URL$id.png").toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
-                .load(imgUri)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image))
-                .into(imgView)
+            .load(imgUri)
+            .apply(
+                RequestOptions()
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_broken_image)
+            )
+            .into(imgView)
     }
 }
 
