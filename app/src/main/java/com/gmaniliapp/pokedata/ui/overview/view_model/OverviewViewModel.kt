@@ -3,15 +3,19 @@ package com.gmaniliapp.pokedata.ui.overview.view_model
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gmaniliapp.pokedata.data.PokemonRepository
 import com.gmaniliapp.pokedata.data.model.Pokemon
 import com.gmaniliapp.pokedata.data.model.PokemonApiStatus
-import com.gmaniliapp.pokedata.data.remote.PokemonApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.gmaniliapp.pokedata.util.Status
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class OverviewViewModel : ViewModel() {
+@HiltViewModel
+class OverviewViewModel @Inject constructor(
+    private val pokemonRepository: PokemonRepository
+) : ViewModel() {
 
     private val _status = MutableLiveData<PokemonApiStatus>()
     val status: LiveData<PokemonApiStatus>
@@ -23,60 +27,38 @@ class OverviewViewModel : ViewModel() {
 
     private val retrievedPokemons: ArrayList<Pokemon> = ArrayList()
 
-    private val _navigateToSelectedPokemon = MutableLiveData<Pokemon>()
-    val navigateToSelectedPokemon: LiveData<Pokemon>
-        get() = _navigateToSelectedPokemon
-
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
+    private var limit = 20
     private var offset = 0
 
-    private var isLoading = false
     private var allLoaded = false
 
-    init {
-        getPokemons()
-    }
-
     fun getPokemons() {
-        if (isLoading || allLoaded)
-            return
+        viewModelScope.launch {
+            _status.value = PokemonApiStatus.LOADING
 
-        isLoading = true
-        coroutineScope.launch {
-            val getPokemonsDeferred = PokemonApi.retrofitService.getPokemonsAsync(offset = offset)
-            try {
-                _status.value =
-                    PokemonApiStatus.LOADING
-                val listResult = getPokemonsDeferred.await()
-                _status.value =
-                    PokemonApiStatus.DONE
-                retrievedPokemons.addAll(listResult.results)
-                _pokemons.postValue(retrievedPokemons)
+            val result = pokemonRepository.getPokemons(limit = limit, offset = offset)
 
-                allLoaded = listResult.next == null
-                offset += listResult.results.count()
-            } catch (e: Exception) {
-                _status.value =
-                    PokemonApiStatus.ERROR
-                _pokemons.value = ArrayList()
-            } finally {
-                isLoading = false
+            _status.value = PokemonApiStatus.DONE
+
+            result.let {
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        result.data?.let {
+                            retrievedPokemons.addAll(it.results)
+
+                            _pokemons.postValue(retrievedPokemons)
+
+                            allLoaded = it.next == null
+                            offset += it.results.count()
+                        }
+                    }
+                    Status.ERROR -> {
+                    }
+                    Status.LOADING -> {
+                    }
+                }
             }
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
-
-    fun displayPokemonDetails(pokemon: Pokemon) {
-        _navigateToSelectedPokemon.value = pokemon
-    }
-
-    fun displayPokemonDetailsComplete() {
-        _navigateToSelectedPokemon.value = null
-    }
 }

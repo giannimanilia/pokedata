@@ -1,54 +1,52 @@
 package com.gmaniliapp.pokedata.ui.detail.view_model
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.gmaniliapp.pokedata.data.PokemonRepository
 import com.gmaniliapp.pokedata.data.model.Pokemon
 import com.gmaniliapp.pokedata.data.model.PokemonApiStatus
-import com.gmaniliapp.pokedata.data.remote.PokemonApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import com.gmaniliapp.pokedata.util.Status
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetailViewModel(pokemon: Pokemon, app: Application) : AndroidViewModel(app) {
+@HiltViewModel
+class DetailViewModel @Inject constructor(
+    private val pokemonRepository: PokemonRepository
+) : ViewModel() {
 
     private val _status = MutableLiveData<PokemonApiStatus>()
     val status: LiveData<PokemonApiStatus>
         get() = _status
 
-    private val _selectedPokemon = MutableLiveData<Pokemon>()
-    val selectedPokemon: LiveData<Pokemon>
-        get() = _selectedPokemon
+    private val _pokemon = MutableLiveData<Pokemon>()
+    val pokemon: LiveData<Pokemon>
+        get() = _pokemon
 
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+    fun getPokemonDetails(id: String) {
+        viewModelScope.launch {
+            _status.value = PokemonApiStatus.LOADING
 
-    init {
-        _selectedPokemon.value = pokemon
-        getPokemonDetails()
-    }
+            val result = pokemonRepository.getPokemonDetails(id)
 
-    private fun getPokemonDetails() {
-        coroutineScope.launch {
-            val getPokemonDetailsDeferred = PokemonApi.retrofitService.getPokemonDetailsAsync(selectedPokemon.value!!.name)
-            try {
-                _status.value = PokemonApiStatus.LOADING
-                val pokemon = getPokemonDetailsDeferred.await()
-                pokemon.url = selectedPokemon.value!!.url
-                _status.value = PokemonApiStatus.DONE
-                _selectedPokemon.value = pokemon
-            } catch (e: Exception) {
-                _status.value =
-                    PokemonApiStatus.ERROR
+            _status.value = PokemonApiStatus.DONE
+
+            result.let {
+                when (result.status) {
+                    Status.SUCCESS -> {
+                        result.data?.let {
+                            _pokemon.postValue(it)
+                        }
+                    }
+                    Status.ERROR -> {
+                    }
+                    Status.LOADING -> {
+                    }
+                }
             }
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 }
